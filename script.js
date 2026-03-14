@@ -99,3 +99,65 @@ function highlightNav() {
     link.classList.toggle('active-section', link.getAttribute('href') === `#${current}`);
   });
 }
+// =============================================
+// ADICIONA ESTE BLOCO AO TEU script.js
+// (cola no final do ficheiro)
+// =============================================
+
+// =============================================
+// HERO SLIDER
+// =============================================
+(function () {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots   = document.querySelectorAll('.dot');
+    const btnPrev = document.querySelector('.slider-prev');
+    const btnNext = document.querySelector('.slider-next');
+
+    if (!slides.length) return;
+
+    let current = 0;
+    let timer;
+
+    function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(next, 5000); // troca a cada 5s
+    }
+
+    // Botões
+    btnNext.addEventListener('click', () => { next(); startAuto(); });
+    btnPrev.addEventListener('click', () => { prev(); startAuto(); });
+
+    // Dots
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            goTo(parseInt(dot.dataset.index));
+            startAuto();
+        });
+    });
+
+    // Swipe no mobile
+    let touchStartX = 0;
+    const hero = document.querySelector('.hero-section');
+    hero.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    hero.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            diff > 0 ? next() : prev();
+            startAuto();
+        }
+    });
+
+    // Arranca
+    startAuto();
+})();

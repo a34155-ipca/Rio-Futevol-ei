@@ -36,20 +36,45 @@
 
     <!-- HERO -->
     <section id="home" class="hero-section d-flex align-items-center">
-        <div class="parallax-bg"></div>
-        <div class="overlay"></div>
-        <div class="container position-relative z-index-1 text-center">
-            <div data-aos="zoom-out" data-aos-duration="1500">
-                <h5 class="text-yellow mb-3 tracking-widest text-uppercase fw-bold">Onde o Rio encontra a areia</h5>
-                <h1 class="display-3 display-md-1 fw-black text-white mb-4">RIO FOOTVOLLEY</h1>
-                <p class="lead text-white mb-5 fs-4 mx-auto" style="max-width: 700px;">Performance, saúde e a energia da praia no esporte que é a cara do Brasil.</p>
-                <div class="d-flex gap-3 justify-content-center flex-wrap">
-                    <a href="#planos" class="btn btn-primary btn-lg px-5 py-3 shadow-glow">VER PLANOS</a>
-                    <a href="#historia" class="btn btn-outline-light btn-lg px-5 py-3">SOBRE NÓS</a>
-                </div>
+ 
+    <!-- SLIDES -->
+    <div class="hero-slides">
+        <div class="hero-slide active" style="background-image: url('./images/emerson\ peitada.jpeg')"></div>
+        <div class="hero-slide" style="background-image: url('./images/emerson_saque.jpeg')"></div>
+        <div class="hero-slide" style="background-image: url('./images/emerson_verde.jpeg')"></div>
+    </div>
+ 
+    <div class="overlay"></div>
+ 
+    <!-- Botões prev/next -->
+    <button class="slider-btn slider-prev" aria-label="Anterior">&#8249;</button>
+    <button class="slider-btn slider-next" aria-label="Próximo">&#8250;</button>
+ 
+    <!-- Dots -->
+    <div class="slider-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+    </div>
+ 
+    <!-- Conteúdo -->
+    <div class="container position-relative z-index-1 text-center">
+        <div data-aos="zoom-out" data-aos-duration="1500">
+            <h5 class="text-yellow mb-3 tracking-widest text-uppercase fw-bold">
+                Onde encontrar a praia em Braga
+            </h5>
+            <img src="./images/Logo_horizontal_v3.PNG" alt="RioFootvolley" class="hero-logo mb-3">
+            <p class="lead text-white mb-4 fs-5 mx-auto" style="max-width: 600px;">
+                Performance, saúde e a energia da praia no esporte que é a cara do Brasil.
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="#planos" class="btn btn-primary btn-lg px-5 py-3 shadow-glow">VER PLANOS</a>
+                <a href="#historia" class="btn btn-outline-light btn-lg px-5 py-3">SOBRE NÓS</a>
             </div>
         </div>
-    </section>
+    </div>
+ 
+</section>
 
     <!-- SOBRE NÓS -->
     <section id="historia" class="section-padding bg-light-beach">
@@ -119,7 +144,7 @@
 
                     <div class="prof-divider"></div>
 
-                    <h4 class="text-white">Dimitri Dantas</h4>
+                    <h4 class="text-white">João Vitor</h4>
                     <p class="text-yellow fw-bold">2 anos praticando</p>
                     <p class="text-white-50 small">
                         Certificado de Instrutor CtM10
@@ -213,8 +238,8 @@
                         <i class="fas fa-calendar-check fa-2x text-blue mb-3"></i>
                         <h4 class="fw-bold">Planos Mensais</h4>
                         <ul class="list-unstyled text-muted my-3">
-                            <li><strong>3x por semana</strong> — 55€</li>
                             <li><strong>2x por semana</strong> — 45€</li>
+                            <li><strong>3x por semana</strong> — 55€</li>
                         </ul>
                         <a href="https://wa.me/351929390450?text=Ol%C3%A1!%20Tenho%20interesse%20nas%20aulas%20do%20RioFootvolley%2C%20podem%20ajudar-me%3F" class="btn btn-blue text-white mt-3">Começar</a>
                     </div>
@@ -266,6 +291,37 @@
             </div>
         </div>
     </section>
+    <section id="galeria" class="galeria-section section-padding">
+    <div class="container">
+ 
+        <div class="text-center mb-5" data-scroll="fade-up">
+            <span class="gal-eyebrow">📸 Momentos reais</span>
+            <h2 class="section-title">TREINOS NA <span class="text-green">PRÁTICA</span></h2>
+            <p class="text-muted">Vê como é o nosso dia a dia nas quadras de Braga.</p>
+        </div>
+ 
+        <div class="gal-grid">
+ 
+            <!-- Foto 1 — shark (destaque, maior) -->
+            <div class="gal-item gal-featured" data-scroll="zoom-in" data-scroll-delay="1">
+                <img src="./images/shark_emerson.jpeg" alt="Shark espetacular no treino">
+                <div class="gal-overlay">
+                    <span class="gal-caption">O Jogo em Ação</span>
+                </div>
+            </div>
+ 
+            <!-- Foto 2 -->
+            <div class="gal-item" data-scroll="fade-left" data-scroll-delay="2">
+                <img src="./images/emerson_aluna.jpeg" alt="Professor Emerson com aluna">
+                <div class="gal-overlay">
+                    <span class="gal-caption">Treino Individual</span>
+                </div>
+            </div>
+ 
+        </div>
+ 
+    </div>
+</section>
      <!-- =============================================
    SECTION LOCALIZAÇÕES — 
 =============================================== -->
@@ -420,6 +476,15 @@
                     <div class="place">3º</div>
                     <span class="rank-label">Bronze</span>
                 </div>
+                <!-- 4º lugar -->
+                <div class="podium-item fourth">
+                    <div class="podium-crown">🏅</div>
+                    <div class="logo">
+                        <img src="./images/sandy_patro.png" alt="Sandy Cup">
+                    </div>
+                    <div class="place">4º</div>
+                    <span class="rank-label">Apoiador</span>
+                </div>
 
             </div>
 
@@ -440,7 +505,7 @@
                 <a href="https://www.instagram.com/riofootvolley?igsh=Mmo3OHh3bGQxdTI=" target="_blank" class="text-white mx-2 fs-4"><i class="fab fa-instagram"></i></a>
                 <a href="https://wa.me/351929390450?text=Ol%C3%A1!%20Tenho%20interesse%20nas%20aulas%20do%20RioFootvolley%2C%20podem%20ajudar-me%3F" class="text-white mx-2 fs-4"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <p class="text-white-50 small">&copy; 2024 RioFootvolley - Todos os direitos reservados.</p>
+            <p class="text-white-50 small">&copy; 2024 RioFootvolley - since 2024, Dimitri Dantas e Emerson Soares.</p>
         </div>
     </footer>
 
