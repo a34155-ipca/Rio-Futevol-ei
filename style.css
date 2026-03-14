@@ -1856,3 +1856,203 @@ width:90px;
     height: 58px;
     box-shadow: 0 8px 20px rgba(74,144,164,0.2);
 }
+/* =============================================
+   COLA NO FINAL DO style.css
+   Patrocinadores — Faixa Horizontal Profissional
+   (substitui todos os estilos antigos do .podium)
+=============================================== */
+
+/* Remove estilos do pódio antigo */
+.podium,
+.podium-item,
+.podium-crown,
+.place,
+.rank-label,
+.logo {
+    all: unset;
+}
+
+/* ===================================================
+   FAIXA DE PATROCINADORES
+=================================================== */
+
+.sponsors-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+/* Divisor vertical entre logos */
+.sponsors-divider {
+    width: 1px;
+    height: 70px;
+    background: rgba(255,255,255,0.12);
+    flex-shrink: 0;
+}
+
+/* Item individual */
+.sponsor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 0 48px;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.sponsor-item:hover {
+    transform: translateY(-8px);
+}
+
+/* Logo */
+.sponsor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+}
+
+.sponsor-logo img {
+    max-width: 140px;
+    max-height: 70px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+    transition: all 0.4s ease;
+    display: block;
+}
+
+.sponsor-item:hover .sponsor-logo img {
+    filter: none;
+    opacity: 1;
+}
+
+/* Badge de tier */
+.sponsor-tier {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 50px;
+}
+
+.sponsor-tier.gold {
+    background: rgba(255,215,0,0.15);
+    color: #FFD700;
+    border: 1px solid rgba(255,215,0,0.3);
+}
+
+.sponsor-tier.silver {
+    background: rgba(192,192,192,0.15);
+    color: #C0C0C0;
+    border: 1px solid rgba(192,192,192,0.3);
+}
+
+.sponsor-tier.bronze {
+    background: rgba(205,127,50,0.15);
+    color: #CD7F32;
+    border: 1px solid rgba(205,127,50,0.3);
+}
+
+.sponsor-tier.supporter {
+    background: rgba(100,200,255,0.12);
+    color: #7dd3fc;
+    border: 1px solid rgba(100,200,255,0.25);
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media (max-width: 992px) {
+    .sponsor-item { padding: 0 32px; }
+    .sponsor-logo img { max-width: 110px; }
+}
+
+@media (max-width: 768px) {
+    .sponsors-strip {
+        gap: 30px;
+        padding: 36px 20px;
+    }
+
+    .sponsors-divider { display: none; }
+
+    .sponsor-item {
+        padding: 0 20px;
+        width: calc(50% - 40px);
+    }
+
+    .sponsor-logo img { max-width: 100px; }
+}
+
+@media (max-width: 480px) {
+    .sponsor-item {
+        width: 100%;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sponsor-item:last-child { border-bottom: none; }
+}
+.sponsors-carousel{
+padding:100px 20px;
+text-align:center;
+background:linear-gradient(135deg,#f8f9fa,#ffffff);
+overflow:hidden;
+}
+
+.carousel-container{
+max-width:500px;
+margin:auto;
+overflow:hidden;
+}
+
+.carousel-track{
+display:flex;
+transition:transform 0.8s ease;
+}
+
+.sponsor-card{
+min-width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.sponsor-card img{
+width:220px;
+height:120px;
+object-fit:contain;
+padding:25px;
+background:white;
+border-radius:16px;
+box-shadow:0 15px 35px rgba(0,0,0,0.1);
+transition:0.4s;
+}
+
+.sponsor-card img:hover{
+transform:scale(1.08);
+box-shadow:0 20px 45px rgba(0,0,0,0.2);
+}
+
+/* Responsivo */
+
+@media (max-width:768px){
+
+.sponsor-card img{
+width:180px;
+height:100px;
+}
+
+}

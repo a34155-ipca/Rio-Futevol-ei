@@ -110,13 +110,10 @@ function highlightNav() {
 (function () {
     const slides = document.querySelectorAll('.hero-slide');
     const dots   = document.querySelectorAll('.dot');
-    const btnPrev = document.querySelector('.slider-prev');
-    const btnNext = document.querySelector('.slider-next');
 
     if (!slides.length) return;
 
     let current = 0;
-    let timer;
 
     function goTo(index) {
         slides[current].classList.remove('active');
@@ -126,31 +123,99 @@ function highlightNav() {
         dots[current].classList.add('active');
     }
 
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
-
-    function startAuto() {
-        clearInterval(timer);
-        timer = setInterval(next, 5000); // troca a cada 5s
-    }
-
-    // Botões
-    btnNext.addEventListener('click', () => { next(); startAuto(); });
-    btnPrev.addEventListener('click', () => { prev(); startAuto(); });
-
-    // Dots
+    // Dots continuam a funcionar
     dots.forEach(dot => {
         dot.addEventListener('click', () => {
             goTo(parseInt(dot.dataset.index));
-            startAuto();
         });
     });
 
     // Swipe no mobile
     let touchStartX = 0;
     const hero = document.querySelector('.hero-section');
-    hero.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-    hero.addEventListener('touchend', e => {
+    if (hero) {
+        hero.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+        hero.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+        });
+    }
+
+    // Auto-play
+    setInterval(() => goTo(current + 1), 3000);
+})();
+// =============================================
+// SUBSTITUI o bloco do carrossel no script.js
+// (o bloco que começa com "Carrossel de Patrocinadores")
+// =============================================
+
+(function () {
+    const carousel = document.querySelector('.sponsors-carousel');
+    const slides   = document.querySelectorAll('.sponsor-slide');
+    const dots     = document.querySelectorAll('.carousel-dot');
+    const btnPrev  = document.querySelector('.carousel-prev');
+    const btnNext  = document.querySelector('.carousel-next');
+
+    if (!carousel || !slides.length) return;
+
+    let current = 0;
+    let autoTimer;
+
+    function getSlidesVisible() {
+    return 1; // sempre 1, em qualquer ecrã
+}
+
+    function getSlideWidth() {
+        // Calcula a largura real do slide + gap APÓS o layout estar pronto
+        return slides[0].getBoundingClientRect().width + 24;
+    }
+
+    function getMaxIndex() {
+        return Math.max(0, slides.length - getSlidesVisible());
+    }
+
+    function updateCarousel(animate = true) {
+        if (!animate) carousel.style.transition = 'none';
+        const index = Math.min(current, getMaxIndex());
+        carousel.style.transform = `translateX(-${index * getSlideWidth()}px)`;
+        if (!animate) requestAnimationFrame(() => carousel.style.transition = '');
+
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    function next() {
+        current = current >= getMaxIndex() ? 0 : current + 1;
+        updateCarousel();
+    }
+
+    function prev() {
+        current = current <= 0 ? getMaxIndex() : current - 1;
+        updateCarousel();
+    }
+
+    function startAuto() {
+        clearInterval(autoTimer);
+        // Só faz auto-play se houver slides para deslizar
+        if (getMaxIndex() > 0) {
+            autoTimer = setInterval(next, 3500);
+        }
+    }
+
+    if (btnNext) btnNext.addEventListener('click', () => { next(); startAuto(); });
+    if (btnPrev) btnPrev.addEventListener('click', () => { prev(); startAuto(); });
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            current = parseInt(dot.dataset.index);
+            updateCarousel();
+            startAuto();
+        });
+    });
+
+    // Swipe mobile
+    let touchStartX = 0;
+    carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', e => {
         const diff = touchStartX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 50) {
             diff > 0 ? next() : prev();
@@ -158,6 +223,44 @@ function highlightNav() {
         }
     });
 
-    // Arranca
-    startAuto();
+    // Pausa no hover
+    carousel.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    carousel.addEventListener('mouseleave', startAuto);
+
+    // Recalcula ao redimensionar
+    window.addEventListener('resize', () => {
+        current = 0;
+        updateCarousel(false);
+        startAuto();
+    });
+
+    // Aguarda imagens carregarem antes de iniciar
+    window.addEventListener('load', () => {
+        updateCarousel(false);
+        startAuto();
+    });
+
+    // Fallback se load já passou
+    if (document.readyState === 'complete') {
+        updateCarousel(false);
+        startAuto();
+    }
 })();
+const track = document.querySelector(".carousel-track");
+const slides = document.querySelectorAll(".sponsor-card");
+
+let index = 0;
+
+function moveCarousel(){
+
+index++;
+
+if(index >= slides.length){
+index = 0;
+}
+
+track.style.transform = `translateX(-${index * 100}%)`;
+
+}
+
+setInterval(moveCarousel,3000);
