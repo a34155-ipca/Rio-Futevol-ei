@@ -2054,5 +2054,13 @@ box-shadow:0 20px 45px rgba(0,0,0,0.2);
 width:180px;
 height:100px;
 }
+}
+.navbar-logo {
+    height: 45px;
+    width: auto;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
 
+@media (max-width: 768px) {
+    .navbar-logo { height: 36px; }
 }
