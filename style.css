@@ -833,6 +833,8 @@ img { max-width: 100%; height: auto; display: block; }
     overflow: hidden;
     padding: 10px 70px;
     z-index: 1;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .carousel-container::before,
@@ -865,11 +867,13 @@ img { max-width: 100%; height: auto; display: block; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     border-radius: 24px;
-    padding: 52px 40px;
-    min-height: 220px;
+    flex-direction: column;  
+    padding: 32px 40px;
+    min-height: 160px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -900,8 +904,8 @@ img { max-width: 100%; height: auto; display: block; }
 .sponsor-card:hover::after { opacity: 1; }
 
 .sponsor-card:hover {
-    border-color: rgba(255,223,0,0.3);
-    box-shadow: 0 0 50px rgba(255,223,0,0.1), 0 20px 50px rgba(0,0,0,0.3);
+    border-color:transparent !important; 
+    box-shadow: none !important;
     transform: translateY(-6px);
 }
 
@@ -1228,6 +1232,9 @@ footer h2 span { color: var(--yellow); }
 
 /* ===== NOME DO PATROCINADOR ===== */
 .sponsor-name {
+    position: static;
+    text-align: center;
+    width: 100%;
     display: block;
     margin-top: 20px;
     font-size: 0.85rem;
@@ -1298,4 +1305,22 @@ footer h2 span { color: var(--yellow); }
 .sponsor-card {
     padding: 32px 40px;
     min-height: 160px;
+}
+/* FORCE RESET SPONSOR CARD */
+.sponsor-card,
+.sponsor-card:hover,
+.sponsor-card:focus {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.sponsor-card::before,
+.sponsor-card::after {
+    display: none !important;
+    opacity: 0 !important;
+    background: none !important;
 }
