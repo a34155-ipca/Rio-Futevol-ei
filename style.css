@@ -1025,13 +1025,27 @@ footer {
 footer h2 span { color: var(--yellow); }
 
 .social-icons a {
-    transition: color 0.3s ease, transform 0.3s ease;
-    display: inline-block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    vertical-align: middle;
 }
 
 .social-icons a:hover {
-    color: var(--yellow) !important;
-    transform: translateY(-4px) scale(1.15);
+    background: #ffdf00;
+    color: #002776 !important;
+    border-color: #ffdf00;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(255,223,0,0.35);
 }
 
 /* ===================================================
@@ -1610,4 +1624,87 @@ footer h2 span { color: var(--yellow); }
     .spotlight-img { max-width: 180px; max-height: 80px; }
     .sponsor-thumb { width: 66px; height: 48px; }
     .sponsors-progress { width: 160px; }
+}
+/* ===== FOOTER UPGRADE ===== */
+footer {
+    background: linear-gradient(160deg, #010f2e 0%, #011a50 100%) !important;
+    padding-top: 60px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Linha no topo igual aos outros blocos */
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffdf00, #009c3b, #ffdf00, transparent);
+}
+
+/* Estrelinhas de fundo */
+footer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 15% 30%, rgba(255,223,0,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.1) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 80%, rgba(0,156,59,0.15) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+footer .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Logo */
+footer h2 {
+    font-size: 2rem !important;
+    letter-spacing: 0.05em;
+}
+
+footer h2 span { color: #ffdf00; }
+
+/* Divider dourado entre logo e ícones */
+footer .container::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffdf00, #009c3b);
+    border-radius: 3px;
+    margin: 0 auto 28px;
+}
+
+/* Ícones sociais */
+.social-icons a {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+
+.social-icons a:hover {
+    background: #ffdf00 !important;
+    color: #002776 !important;
+    border-color: #ffdf00 !important;
+    transform: translateY(-5px) scale(1.1) !important;
+    box-shadow: 0 8px 20px rgba(255,223,0,0.35) !important;
+}
+
+/* Linha separadora antes do copyright */
+footer hr {
+    border-color: rgba(255,255,255,0.08) !important;
+    margin: 28px 0 20px !important;
+}
+
+footer .text-white-50 {
+    font-size: 0.78rem !important;
+    letter-spacing: 0.08em;
 }
