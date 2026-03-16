@@ -58,10 +58,9 @@ const scrollObserver = new IntersectionObserver((entries) => {
       scrollObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.15, rootMargin: '0px 0px -100px 0px' });
 
 document.querySelectorAll('[data-scroll]').forEach(el => scrollObserver.observe(el));
-
 // =============================================
 // PÓDIO — stagger de entrada (1º primeiro)
 // =============================================
@@ -99,10 +98,7 @@ function highlightNav() {
     link.classList.toggle('active-section', link.getAttribute('href') === `#${current}`);
   });
 }
-// =============================================
-// ADICIONA ESTE BLOCO AO TEU script.js
-// (cola no final do ficheiro)
-// =============================================
+
 
 // =============================================
 // HERO SLIDER
@@ -144,61 +140,36 @@ function highlightNav() {
     // Auto-play
     setInterval(() => goTo(current + 1), 3000);
 })();
-// =============================================
-// SUBSTITUI o bloco do carrossel no script.js
-// (o bloco que começa com "Carrossel de Patrocinadores")
-// =============================================
+
 
 (function () {
-    const carousel = document.querySelector('.sponsors-carousel');
-    const slides   = document.querySelectorAll('.sponsor-slide');
-    const dots     = document.querySelectorAll('.carousel-dot');
-    const btnPrev  = document.querySelector('.carousel-prev');
-    const btnNext  = document.querySelector('.carousel-next');
+    const track  = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.sponsor-card');
+    const dots   = document.querySelectorAll('.carousel-dot');
+    const btnPrev = document.querySelector('.carousel-prev');
+    const btnNext = document.querySelector('.carousel-next');
 
-    if (!carousel || !slides.length) return;
+    if (!track || !slides.length) return;
 
     let current = 0;
     let autoTimer;
 
-    function getSlidesVisible() {
-    return 1; // sempre 1, em qualquer ecrã
-}
-
     function getSlideWidth() {
-        // Calcula a largura real do slide + gap APÓS o layout estar pronto
         return slides[0].getBoundingClientRect().width + 24;
     }
 
-    function getMaxIndex() {
-        return Math.max(0, slides.length - getSlidesVisible());
+    function goTo(index) {
+        current = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${current * getSlideWidth()}px)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
     }
 
-    function updateCarousel(animate = true) {
-        if (!animate) carousel.style.transition = 'none';
-        const index = Math.min(current, getMaxIndex());
-        carousel.style.transform = `translateX(-${index * getSlideWidth()}px)`;
-        if (!animate) requestAnimationFrame(() => carousel.style.transition = '');
-
-        dots.forEach((d, i) => d.classList.toggle('active', i === index));
-    }
-
-    function next() {
-        current = current >= getMaxIndex() ? 0 : current + 1;
-        updateCarousel();
-    }
-
-    function prev() {
-        current = current <= 0 ? getMaxIndex() : current - 1;
-        updateCarousel();
-    }
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
 
     function startAuto() {
         clearInterval(autoTimer);
-        // Só faz auto-play se houver slides para deslizar
-        if (getMaxIndex() > 0) {
-            autoTimer = setInterval(next, 3500);
-        }
+        autoTimer = setInterval(next, 3500);
     }
 
     if (btnNext) btnNext.addEventListener('click', () => { next(); startAuto(); });
@@ -206,61 +177,24 @@ function highlightNav() {
 
     dots.forEach(dot => {
         dot.addEventListener('click', () => {
-            current = parseInt(dot.dataset.index);
-            updateCarousel();
+            goTo(parseInt(dot.dataset.index));
             startAuto();
         });
     });
 
     // Swipe mobile
     let touchStartX = 0;
-    carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    carousel.addEventListener('touchend', e => {
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
         const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) {
-            diff > 0 ? next() : prev();
-            startAuto();
-        }
+        if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); startAuto(); }
     });
 
-    // Pausa no hover
-    carousel.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    carousel.addEventListener('mouseleave', startAuto);
+    track.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    track.addEventListener('mouseleave', startAuto);
 
-    // Recalcula ao redimensionar
-    window.addEventListener('resize', () => {
-        current = 0;
-        updateCarousel(false);
-        startAuto();
-    });
+    window.addEventListener('resize', () => { goTo(0); startAuto(); });
 
-    // Aguarda imagens carregarem antes de iniciar
-    window.addEventListener('load', () => {
-        updateCarousel(false);
-        startAuto();
-    });
-
-    // Fallback se load já passou
-    if (document.readyState === 'complete') {
-        updateCarousel(false);
-        startAuto();
-    }
+    window.addEventListener('load', () => { goTo(0); startAuto(); });
+    if (document.readyState === 'complete') { goTo(0); startAuto(); }
 })();
-const track = document.querySelector(".carousel-track");
-const slides = document.querySelectorAll(".sponsor-card");
-
-let index = 0;
-
-function moveCarousel(){
-
-index++;
-
-if(index >= slides.length){
-index = 0;
-}
-
-track.style.transform = `translateX(-${index * 100}%)`;
-
-}
-
-setInterval(moveCarousel,3000);
