@@ -147,109 +147,92 @@ function highlightNav() {
 // =============================================
 
 (function () {
-    const cards    = document.querySelectorAll('.sponsor-card');
-    const dots     = document.querySelectorAll('.carousel-dot');
-    const btnPrev  = document.querySelector('.carousel-prev');
-    const btnNext  = document.querySelector('.carousel-next');
-    const progress = document.querySelector('.carousel-progress-bar');
-    const counterCurrent = document.querySelector('.counter-current');
+    const thumbs   = document.querySelectorAll('.sponsor-thumb');
+    const spotImg  = document.querySelector('.spotlight-img');
+    const spotName = document.querySelector('.spotlight-name');
+    const spotRole = document.querySelector('.spotlight-role');
+    const progFill = document.querySelector('.sponsors-progress-fill');
 
-    if (!cards.length) return;
+    if (!thumbs.length || !spotImg) return;
 
-    const DURATION = 4000; // ms por slide
+    // Dados dos patrocinadores — muda os nomes conforme os teus
+    const sponsors = [
+        { src: 'images/patrocinador1.png', name: 'Home Blick',   role: 'Parceiro Oficial' },
+        { src: 'images/patrocinador2.png', name: 'AutocarroBar', role: 'Parceiro Oficial' },
+        { src: 'images/patrocinador3.png', name: 'Maria Pitanga', role: 'Parceiro Oficial' },
+        { src: 'images/patrocinador4.png', name: 'Sandy Cup',     role: 'Parceiro Oficial' },
+    ];
+
+    const DURATION = 4000;
     let current = 0;
     let autoTimer;
     let progressTimer;
     let progressValue = 0;
 
-    // Inicializa — primeiro card visível
-    cards[0].classList.add('active-slide');
-
     function goTo(index) {
-        // Remove active do atual
-        cards[current].classList.remove('active-slide');
-        dots[current].classList.remove('active');
+        // Remove active
+        thumbs[current].classList.remove('active');
+        current = (index + sponsors.length) % sponsors.length;
 
-        // Atualiza índice
-        current = (index + cards.length) % cards.length;
+        const s = sponsors[current];
 
-        // Ativa novo
-        cards[current].classList.add('active-slide');
-        dots[current].classList.add('active');
+        // Fade out
+        spotImg.style.opacity = '0';
+        spotImg.style.transform = 'scale(0.92)';
 
-        // Atualiza contador
-        if (counterCurrent) {
-            counterCurrent.textContent = current + 1;
-        }
+        setTimeout(() => {
+            spotImg.src = s.src;
+            spotName.textContent = s.name;
+            spotRole.textContent = s.role;
 
-        // Reset barra de progresso
+            // Fade in
+            spotImg.style.opacity = '1';
+            spotImg.style.transform = 'scale(1)';
+        }, 300);
+
+        thumbs[current].classList.add('active');
         resetProgress();
     }
 
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
+    // Transição suave na imagem principal
+    spotImg.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
 
-    // ===== BARRA DE PROGRESSO =====
-    function resetProgress() {
-        progressValue = 0;
-        if (progress) progress.style.width = '0%';
-        clearInterval(progressTimer);
-        startProgress();
-    }
-
-    function startProgress() {
-        const step = 100 / (DURATION / 50); // atualiza a cada 50ms
-        progressTimer = setInterval(() => {
-            progressValue += step;
-            if (progress) progress.style.width = Math.min(progressValue, 100) + '%';
-            if (progressValue >= 100) clearInterval(progressTimer);
-        }, 50);
-    }
-
-    // ===== AUTO PLAY =====
-    function startAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(next, DURATION);
-        resetProgress();
-    }
-
-    function stopAuto() {
-        clearInterval(autoTimer);
-        clearInterval(progressTimer);
-    }
-
-    // Botões
-    if (btnNext) btnNext.addEventListener('click', () => { next(); startAuto(); });
-    if (btnPrev) btnPrev.addEventListener('click', () => { prev(); startAuto(); });
-
-    // Dots
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            goTo(parseInt(dot.dataset.index));
+    // Clique nas thumbnails
+    thumbs.forEach((thumb, i) => {
+        thumb.addEventListener('click', () => {
+            goTo(i);
             startAuto();
         });
     });
 
-    // Swipe mobile
-    let touchStartX = 0;
-    const container = document.querySelector('.carousel-container');
-    if (container) {
-        container.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-        }, { passive: true });
-        container.addEventListener('touchend', e => {
-            const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) {
-                diff > 0 ? next() : prev();
-                startAuto();
-            }
-        });
-
-        // Pausa no hover
-        container.addEventListener('mouseenter', stopAuto);
-        container.addEventListener('mouseleave', startAuto);
+    // Progresso
+    function resetProgress() {
+        progressValue = 0;
+        if (progFill) progFill.style.width = '0%';
+        clearInterval(progressTimer);
+        const step = 100 / (DURATION / 50);
+        progressTimer = setInterval(() => {
+            progressValue += step;
+            if (progFill) progFill.style.width = Math.min(progressValue, 100) + '%';
+            if (progressValue >= 100) clearInterval(progressTimer);
+        }, 50);
     }
 
-    // Arranca
+    function startAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), DURATION);
+        resetProgress();
+    }
+
+    // Pausa no hover do spotlight
+    const stage = document.querySelector('.sponsors-stage');
+    if (stage) {
+        stage.addEventListener('mouseenter', () => {
+            clearInterval(autoTimer);
+            clearInterval(progressTimer);
+        });
+        stage.addEventListener('mouseleave', startAuto);
+    }
+
     startAuto();
 })();

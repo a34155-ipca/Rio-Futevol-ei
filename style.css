@@ -1150,7 +1150,7 @@ footer h2 span { color: var(--yellow); }
 
 @media (max-width: 480px) {
     .section-title { font-size: 1.65rem; }
-    .hero-logo { max-width: 185px; }
+    .hero-logo { max-width: 385px; }
     .prof-img img { width: 130px; height: 130px; }
     .flip-card-inner { height: 185px; }
     .uniform-img { height: 210px; }
@@ -1323,4 +1323,291 @@ footer h2 span { color: var(--yellow); }
     display: none !important;
     opacity: 0 !important;
     background: none !important;
+}
+/* =============================================
+   ADICIONA NO FINAL DO style-final.css
+   Sponsors — versão final
+=============================================== */
+
+.sponsors-carousel {
+    padding: 120px 20px;
+    background: linear-gradient(160deg, #010f2e 0%, #002776 60%, #011a50 100%);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Linha no topo */
+.sponsors-carousel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffdf00, #009c3b, #ffdf00, transparent);
+}
+
+/* Estrelas de fundo */
+.sponsors-carousel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 10% 20%, rgba(255,223,0,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 75%, rgba(255,255,255,0.15) 0%, transparent 100%),
+        radial-gradient(2px 2px at 60% 10%, rgba(0,156,59,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 50%, rgba(255,255,255,0.1) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 75% 85%, rgba(255,223,0,0.2) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sponsors-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+}
+
+/* ===== CABEÇALHO ===== */
+.sponsors-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.sponsors-line {
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffdf00, #009c3b);
+    border-radius: 3px;
+}
+
+.sponsors-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+    margin: 0;
+}
+
+.sponsors-head .section-title {
+    color: white;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin: 0;
+}
+
+.sponsors-head .section-title span {
+    color: #ffdf00;
+}
+
+/* ===== STAGE ===== */
+.sponsors-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+/* ===== SPOTLIGHT — logo principal ===== */
+.sponsors-spotlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+}
+
+.spotlight-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,223,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
+}
+
+.spotlight-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 48px;
+    box-shadow:
+        0 0 0 1px rgba(255,223,0,0.2),
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 40px rgba(255,223,0,0.15);
+    transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.5s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.spotlight-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow:
+        0 0 0 2px rgba(255,223,0,0.4),
+        0 30px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(255,223,0,0.25);
+}
+
+.spotlight-img {
+    max-width: 240px;
+    max-height: 110px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.spotlight-card:hover .spotlight-img {
+    transform: scale(1.04);
+}
+
+.spotlight-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.spotlight-role {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ffdf00;
+    margin: 0;
+    opacity: 0.75;
+}
+
+/* ===== THUMBNAILS ===== */
+.sponsors-thumbs {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sponsor-thumb {
+    width: 80px;
+    height: 56px;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+}
+
+.sponsor-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.4;
+    transition: all 0.35s ease;
+}
+
+.sponsor-thumb:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,223,0,0.35);
+    transform: translateY(-4px);
+}
+
+.sponsor-thumb:hover img {
+    filter: none;
+    opacity: 0.9;
+}
+
+.sponsor-thumb.active {
+    background: white;
+    border-color: #ffdf00;
+    box-shadow: 0 0 20px rgba(255,223,0,0.3),
+                0 8px 20px rgba(0,0,0,0.3);
+    transform: scale(1.1);
+}
+
+.sponsor-thumb.active img {
+    filter: none;
+    opacity: 1;
+}
+
+/* ===== BARRA DE PROGRESSO ===== */
+.sponsors-progress {
+    width: 200px;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.sponsors-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ffdf00, #009c3b);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+/* ===== BTN SPONSOR ===== */
+.btn-sponsor {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 40px;
+    border: 1.5px solid rgba(255,223,0,0.5);
+    border-radius: 50px;
+    color: #ffdf00;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgba(255,223,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.btn-sponsor::before {
+    content: '✦';
+    font-size: 0.7rem;
+    opacity: 0.6;
+}
+
+.btn-sponsor:hover {
+    background: #ffdf00;
+    color: #002776;
+    border-color: #ffdf00;
+    box-shadow: 0 0 30px rgba(255,223,0,0.35);
+    transform: translateY(-3px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .sponsors-carousel { padding: 80px 20px; }
+    .sponsors-inner { gap: 40px; }
+    .spotlight-card { padding: 24px 32px; }
+    .spotlight-img { max-width: 180px; max-height: 80px; }
+    .sponsor-thumb { width: 66px; height: 48px; }
+    .sponsors-progress { width: 160px; }
 }
