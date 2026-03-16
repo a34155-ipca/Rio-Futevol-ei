@@ -79,7 +79,7 @@ img { max-width: 100%; height: auto; display: block; }
 .navbar-brand span { color: var(--yellow); }
 
 .navbar-logo {
-    height: 44px;
+    height: 80px;
     width: auto;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
     transition: transform 0.3s ease;
@@ -1112,7 +1112,7 @@ footer h2 span { color: var(--yellow); }
     .section-title { font-size: 1.9rem; }
 
     #mainNav { padding: 14px 0; }
-    .navbar-logo { height: 36px; }
+    .navbar-logo { height: 66px; }
     .nav-link { margin: 4px 0; text-align: center; }
 
     .hero-section { height: auto; padding: 110px 0 80px; }
