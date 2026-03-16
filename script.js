@@ -142,39 +142,87 @@ function highlightNav() {
 })();
 
 
+// =============================================
+// SUBSTITUI o bloco do carrossel no script.js
+// =============================================
+
 (function () {
-    const track  = document.querySelector('.carousel-track');
-    const slides = document.querySelectorAll('.sponsor-card');
-    const dots   = document.querySelectorAll('.carousel-dot');
-    const btnPrev = document.querySelector('.carousel-prev');
-    const btnNext = document.querySelector('.carousel-next');
+    const cards    = document.querySelectorAll('.sponsor-card');
+    const dots     = document.querySelectorAll('.carousel-dot');
+    const btnPrev  = document.querySelector('.carousel-prev');
+    const btnNext  = document.querySelector('.carousel-next');
+    const progress = document.querySelector('.carousel-progress-bar');
+    const counterCurrent = document.querySelector('.counter-current');
 
-    if (!track || !slides.length) return;
+    if (!cards.length) return;
 
+    const DURATION = 4000; // ms por slide
     let current = 0;
     let autoTimer;
+    let progressTimer;
+    let progressValue = 0;
 
-    function getSlideWidth() {
-        return slides[0].getBoundingClientRect().width + 24;
-    }
+    // Inicializa — primeiro card visível
+    cards[0].classList.add('active-slide');
 
     function goTo(index) {
-        current = (index + slides.length) % slides.length;
-        track.style.transform = `translateX(-${current * getSlideWidth()}px)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        // Remove active do atual
+        cards[current].classList.remove('active-slide');
+        dots[current].classList.remove('active');
+
+        // Atualiza índice
+        current = (index + cards.length) % cards.length;
+
+        // Ativa novo
+        cards[current].classList.add('active-slide');
+        dots[current].classList.add('active');
+
+        // Atualiza contador
+        if (counterCurrent) {
+            counterCurrent.textContent = current + 1;
+        }
+
+        // Reset barra de progresso
+        resetProgress();
     }
 
     function next() { goTo(current + 1); }
     function prev() { goTo(current - 1); }
 
-    function startAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(next, 3500);
+    // ===== BARRA DE PROGRESSO =====
+    function resetProgress() {
+        progressValue = 0;
+        if (progress) progress.style.width = '0%';
+        clearInterval(progressTimer);
+        startProgress();
     }
 
+    function startProgress() {
+        const step = 100 / (DURATION / 50); // atualiza a cada 50ms
+        progressTimer = setInterval(() => {
+            progressValue += step;
+            if (progress) progress.style.width = Math.min(progressValue, 100) + '%';
+            if (progressValue >= 100) clearInterval(progressTimer);
+        }, 50);
+    }
+
+    // ===== AUTO PLAY =====
+    function startAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(next, DURATION);
+        resetProgress();
+    }
+
+    function stopAuto() {
+        clearInterval(autoTimer);
+        clearInterval(progressTimer);
+    }
+
+    // Botões
     if (btnNext) btnNext.addEventListener('click', () => { next(); startAuto(); });
     if (btnPrev) btnPrev.addEventListener('click', () => { prev(); startAuto(); });
 
+    // Dots
     dots.forEach(dot => {
         dot.addEventListener('click', () => {
             goTo(parseInt(dot.dataset.index));
@@ -184,17 +232,24 @@ function highlightNav() {
 
     // Swipe mobile
     let touchStartX = 0;
-    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); startAuto(); }
-    });
+    const container = document.querySelector('.carousel-container');
+    if (container) {
+        container.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        container.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? next() : prev();
+                startAuto();
+            }
+        });
 
-    track.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    track.addEventListener('mouseleave', startAuto);
+        // Pausa no hover
+        container.addEventListener('mouseenter', stopAuto);
+        container.addEventListener('mouseleave', startAuto);
+    }
 
-    window.addEventListener('resize', () => { goTo(0); startAuto(); });
-
-    window.addEventListener('load', () => { goTo(0); startAuto(); });
-    if (document.readyState === 'complete') { goTo(0); startAuto(); }
+    // Arranca
+    startAuto();
 })();

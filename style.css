@@ -206,7 +206,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Logo hero */
 .hero-logo {
-    max-width: 320px;
+    max-width: 620px;
     width: 100%;
     margin: 0 auto 16px;
     filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));
@@ -1186,3 +1186,116 @@ footer h2 span { color: var(--yellow); }
 [data-scroll-delay="3"] { transition-delay: 0.45s; }
 [data-scroll-delay="4"] { transition-delay: 0.60s; }
 [data-scroll-delay="5"] { transition-delay: 0.75s; }
+/* =============================================
+   ADICIONA NO FINAL DO style-final.css
+   Melhorias carousel patrocinadores
+=============================================== */
+
+/* ===== CONTADOR ===== */
+.carousel-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.counter-current {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+
+.counter-sep {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.3);
+    font-weight: 300;
+    margin: 0 2px;
+}
+
+.counter-total {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    line-height: 1;
+    align-self: flex-end;
+    margin-bottom: 4px;
+}
+
+/* ===== NOME DO PATROCINADOR ===== */
+.sponsor-name {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.3s ease;
+}
+
+.sponsor-card:hover .sponsor-name {
+    color: var(--yellow);
+}
+
+/* ===== BARRA DE PROGRESSO ===== */
+.carousel-progress-wrapper {
+    width: 180px;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    margin: 28px auto 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.carousel-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--yellow), var(--green));
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+/* ===== FADE em vez de SLIDE ===== */
+/* Sobrescreve o comportamento do track */
+.carousel-track {
+    position: relative;
+    display: block; /* muda de flex para block */
+    height: auto;
+}
+
+.sponsor-card {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.97);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Remove o flex:0 0 100% do slide anterior */
+    flex: unset;
+}
+
+.sponsor-card.active-slide {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    position: relative; /* o activo ocupa espaço */
+}
+
+/* Altura mínima para o container não colapsar */
+.carousel-track {
+    min-height: 200px;
+}
+
+/* Padding reduzido */
+.sponsor-card {
+    padding: 32px 40px;
+    min-height: 160px;
+}
