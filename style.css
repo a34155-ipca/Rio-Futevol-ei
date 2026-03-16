@@ -1150,7 +1150,7 @@ footer h2 span { color: var(--yellow); }
 
 @media (max-width: 480px) {
     .section-title { font-size: 1.65rem; }
-    .hero-logo { max-width: 385px; }
+    .hero-logo { max-width: 285px; }
     .prof-img img { width: 130px; height: 130px; }
     .flip-card-inner { height: 185px; }
     .uniform-img { height: 210px; }
