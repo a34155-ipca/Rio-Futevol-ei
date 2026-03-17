@@ -1708,3 +1708,50 @@ footer .text-white-50 {
     font-size: 0.78rem !important;
     letter-spacing: 0.08em;
 }
+/* ===== HERO BRAND TEXT ===== */
+.hero-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
+.hero-brand-rio {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 9rem);
+    color: var(--yellow);
+    letter-spacing: 0.05em;
+    text-shadow:
+        3px 3px 0px var(--blue),
+        -1px -1px 0px rgba(0,0,0,0.3);
+    line-height: 1;
+}
+
+.hero-brand-foot {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+    line-height: 1;
+    border-left: 4px solid var(--green);
+    padding-left: 16px;
+}
+
+@media (max-width: 768px) {
+    .hero-brand {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .hero-brand-foot {
+        border-left: none;
+        border-top: 4px solid var(--green);
+        padding-left: 0;
+        padding-top: 8px;
+    }
+}
