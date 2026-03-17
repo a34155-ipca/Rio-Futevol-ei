@@ -1708,32 +1708,32 @@ footer .text-white-50 {
     font-size: 0.78rem !important;
     letter-spacing: 0.08em;
 }
-/* ===== HERO BRAND TEXT ===== */
+/* ===== HERO BRAND ===== */
+
 .hero-brand {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 16px;
     line-height: 1;
 }
 
 .hero-brand-rio {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 12vw, 9rem);
+    font-size: clamp(3.5rem, 10vw, 7rem);
     color: var(--yellow);
-    letter-spacing: 0.05em;
-    text-shadow:
-        3px 3px 0px var(--blue),
-        -1px -1px 0px rgba(0,0,0,0.3);
+    letter-spacing: 0.06em;
+    -webkit-text-stroke: 2px var(--blue);
+    text-shadow: 4px 4px 0px rgba(0,39,118,0.5);
     line-height: 1;
 }
 
 .hero-brand-foot {
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Russo One', sans-serif;
     font-size: clamp(2rem, 6vw, 4.5rem);
-    font-weight: 900;
-    color: white;
+    font-weight: 400;
+    color: #5b9bd5;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-shadow: 2px 2px 12px rgba(0,0,0,0.4);
@@ -1743,11 +1743,6 @@ footer .text-white-50 {
 }
 
 @media (max-width: 768px) {
-    .hero-brand-rio {
-        font-size: clamp(3rem, 15vw, 5rem);
-    }
-
-    .hero-brand-foot {
-        font-size: clamp(1.5rem, 7vw, 2.5rem);
-    }
+    .hero-brand-rio  { font-size: clamp(2.8rem, 12vw, 4rem); }
+    .hero-brand-foot { font-size: clamp(2rem, 9vw, 3rem); }
 }
