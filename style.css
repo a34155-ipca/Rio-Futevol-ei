@@ -1746,3 +1746,12 @@ footer .text-white-50 {
     .hero-brand-rio  { font-size: clamp(2.8rem, 12vw, 4rem); }
     .hero-brand-foot { font-size: clamp(2rem, 9vw, 3rem); }
 }
+.hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    color: white;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    margin-bottom: 16px;
+    text-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+}
