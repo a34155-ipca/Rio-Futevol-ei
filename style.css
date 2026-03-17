@@ -1743,15 +1743,11 @@ footer .text-white-50 {
 }
 
 @media (max-width: 768px) {
-    .hero-brand {
-        flex-direction: column;
-        gap: 4px;
+    .hero-brand-rio {
+        font-size: clamp(3rem, 15vw, 5rem);
     }
 
     .hero-brand-foot {
-        border-left: none;
-        border-top: 4px solid var(--green);
-        padding-left: 0;
-        padding-top: 8px;
+        font-size: clamp(1.5rem, 7vw, 2.5rem);
     }
 }
