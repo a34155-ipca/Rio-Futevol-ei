@@ -1749,7 +1749,7 @@ footer .text-white-50 {
 .hero-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-size: clamp(2.5rem, 7vw, 12rem);
     color: white;
     letter-spacing: 0.05em;
     line-height: 1;
