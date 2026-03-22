@@ -236,3 +236,71 @@ function highlightNav() {
 
     startAuto();
 })();
+const galleries = {
+    jogo: {
+        title: 'O Jogo em Ação',
+        photos: [
+            './images/shark_emerson.jpeg',
+            './images/emerson_saque.jpeg',
+            './images/campeonato duplas.jpeg',
+            './images/emerson peitada.jpeg',
+            './images/campeonato.jpeg'
+            
+        ]
+    },
+    treino: {
+        title: 'Treino Individual',
+        photos: [
+            './images/emerson_aluna.jpeg',
+            './images/emerson duo namoirada.PNG',
+            './images/amizade emerson.jpeg',
+            './images/emerson correndo.jpeg',
+            './images/emerson costas.jpeg'
+        ]
+    }
+};
+
+let activeGallery = null;
+
+function toggleExpand(type) {
+    const expand = document.getElementById('gal-expand');
+    const grid = document.getElementById('gal-expand-grid');
+    const title = document.getElementById('gal-expand-title');
+
+    // Se clicar na mesma galeria fecha
+    if (activeGallery === type && expand.classList.contains('open')) {
+        closeExpand();
+        return;
+    }
+
+    activeGallery = type;
+    const gallery = galleries[type];
+    title.textContent = gallery.title;
+    grid.innerHTML = '';
+
+    gallery.photos.forEach(src => {
+        if (src === 'placeholder') {
+            const div = document.createElement('div');
+            div.className = 'gal-placeholder';
+            div.textContent = 'Em breve';
+            grid.appendChild(div);
+        } else {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = gallery.title;
+            grid.appendChild(img);
+        }
+    });
+
+    expand.classList.add('open');
+
+    // Scroll suave até à galeria expandida
+    setTimeout(() => {
+        expand.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+}
+
+function closeExpand() {
+    document.getElementById('gal-expand').classList.remove('open');
+    activeGallery = null;
+}
